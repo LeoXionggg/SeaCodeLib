@@ -1,0 +1,7 @@
+﻿{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=./ApiTemplApiProject.db",
+    "MultiTenantConnection": "Data Source=./ApiTemplApiProject_SaaS.db",
+    "PgSqlConnection": "HOST=127.0.0.1;PORT=5432;DATABASE=ApiTemplApiProject;PASSWORD=123qwe;USER ID=postgres;"
+  }
+}
