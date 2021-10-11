@@ -1,33 +1,56 @@
-$NewName='NewProjName'
-$OldName='ApiTemplApiProject'
+param
+(
+    $NewName=(Read-Host "è¯·è¾“å…¥æ–°çš„é¡¹ç›®åç§°")
+)
 
+
+If([String]::IsNullOrEmpty($NewName))
+{
+	$NewName= Read-Host 'è¯·è¾“å…¥æ–°çš„é¡¹ç›®åç§°'
+}
+
+If([String]::IsNullOrEmpty($NewName))
+{
+	Write-Host 'æœªè¾“å…¥æ–°é¡¹ç›®åç§°ï¼Œå·²é€€å‡ºï¼' -ForegroundColor Red
+	exit
+}
+
+$OldName='ApiTemplApiProject'
 $OutputEncoding = New-Object System.Text.UTF8Encoding
 
-Write-Host ' ===ÄÚÈİÌæ»»´¦Àí¿ªÊ¼=== ' -ForegroundColor Yellow
+Write-Host ' ===å†…å®¹æ›¿æ¢[' -NoNewLine -ForegroundColor Yellow
+Write-Host $OldName -NoNewLine
+Write-Host ']->[' -NoNewLine -ForegroundColor Yellow
+Write-Host $NewName -NoNewLine
+Write-Host ']å¤„ç†å¼€å§‹=== ' -ForegroundColor Yellow
 Get-ChildItem -Path '.' -Name -File -Recurse -Exclude $MyInvocation.MyCommand.Name | ForEach-Object {
     (Get-Content $_ -encoding utf8).replace($OldName,$NewName) | Set-Content $_ -encoding utf8
-	Write-Host ' *´¦ÀíÎÄ¼ş*: '-ForegroundColor Gray -BackgroundColor White -NoNewLine
+	Write-Host ' *å¤„ç†æ–‡ä»¶*: '-ForegroundColor Gray -BackgroundColor White -NoNewLine
 	Write-Host $_ -ForegroundColor Black -BackgroundColor White -NoNewLine
 	Write-Host '...Done! ' -ForegroundColor Blue -BackgroundColor White
 }
-Write-Host ' ===ÄÚÈİÌæ»»´¦ÀíÍê³É=== ' -ForegroundColor Yellow
+Write-Host ' ===å†…å®¹æ›¿æ¢å¤„ç†å®Œæˆ=== ' -ForegroundColor Yellow
 Start-Sleep -s 1
-Write-Host ' ===ÎÄ¼ş¸üÃû´¦Àí¿ªÊ¼=== ' -ForegroundColor Yellow
+Write-Host ' ===æ–‡ä»¶æ›´å[' -NoNewLine -ForegroundColor Yellow
+Write-Host $OldName -NoNewLine
+Write-Host ']->[' -NoNewLine -ForegroundColor Yellow
+Write-Host $NewName -NoNewLine
+Write-Host ']å¤„ç†å¼€å§‹=== ' -ForegroundColor Yellow
 Get-ChildItem -Path '.' -Recurse  -Include $OldName* | ForEach-Object {
 	Rename-Item $_.FullName$_.FullName.Replace($OldName,$NewName)
-	Write-Host ' *ÎÄ¼ş¸üÃû*: '-ForegroundColor Gray -BackgroundColor White -NoNewLine
+	Write-Host ' *æ–‡ä»¶æ›´å*: '-ForegroundColor Gray -BackgroundColor White -NoNewLine
 	Write-Host $_.FullName -ForegroundColor Black -BackgroundColor White -NoNewLine
 	Write-Host '...Done! ' -ForegroundColor Blue -BackgroundColor White
 }
-#ÎÄ¼ş¸üÃûĞèÒªÑ­»·2´Î²ÅÄÜ¸üÃûÈ«£¬
-#µÚÒ»´ÎÖ»¸üÃûÁËÒ»²ãµ±Ç°Ä¿Â¼£¬Ô­Òò²»Öª
+#æ–‡ä»¶æ›´åéœ€è¦å¾ªç¯2æ¬¡æ‰èƒ½æ›´åå…¨ï¼Œ
+#ç¬¬ä¸€æ¬¡åªæ›´åäº†ä¸€å±‚å½“å‰ç›®å½•ï¼ŒåŸå› ä¸çŸ¥
 Start-Sleep -s 1
 Get-ChildItem -Path '.' -Recurse  -Include $OldName* | ForEach-Object {
 	Rename-Item $_.FullName$_.FullName.Replace($OldName,$NewName)
-	Write-Host ' *ÎÄ¼ş¸üÃû*: '-ForegroundColor Gray -BackgroundColor White -NoNewLine
+	Write-Host ' *æ–‡ä»¶æ›´å*: '-ForegroundColor Gray -BackgroundColor White -NoNewLine
 	Write-Host $_.FullName -ForegroundColor Black -BackgroundColor White -NoNewLine
 	Write-Host '...Done! ' -ForegroundColor Blue -BackgroundColor White
 }
-Write-Host ' ===ÎÄ¼ş¸üÃû´¦ÀíÍê³É=== ' -ForegroundColor Yellow
-Write-Host '°´ÈÎÒâ¼ü¼ÌĞø...' -NoNewLine
+Write-Host ' ===æ–‡ä»¶æ›´åå¤„ç†å®Œæˆ=== ' -ForegroundColor Yellow
+Write-Host 'æŒ‰ä»»æ„é”®ç»§ç»­...' -NoNewLine
 $null = [Console]::ReadKey('?')
